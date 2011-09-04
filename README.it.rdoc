@@ -24,90 +24,91 @@ utilizzato da Sinatra se disponibile.
 
 == Routes
 
-In Sinatra, a route is an HTTP method paired with a URL-matching pattern.
-Each route is associated with a block:
+In Sinatra, una routa è un metodo HTTP accoppiato con un pattern che
+riconosce un URL. Ogni route è associata ad un blocco:
 
   get '/' do
-    .. show something ..
+    .. mostra qualcosa ..
   end
 
   post '/' do
-    .. create something ..
+    .. crea qualcosa ..
   end
 
   put '/' do
-    .. replace something ..
+    .. sostituisci qualcosa ..
   end
 
   patch '/' do
-    .. modify something ..
+    .. modifica qualcosa ..
   end
 
   delete '/' do
-    .. annihilate something ..
+    .. elimina qualcosa ..
   end
 
   options '/' do
-    .. appease something ..
+    .. gestisci qualcosa ..
   end
 
-Routes are matched in the order they are defined. The first route that
-matches the request is invoked.
+Le route vengono riconosciute nell'ordine in cui sono definite.
+Viene attivata sempre la prima route che corrisponde alla richiesta.
 
-Route patterns may include named parameters, accessible via the
-<tt>params</tt> hash:
+I route pattern possono includere dei parametri, accessibili attraverso
+l'hash <tt>params</tt>:
 
-  get '/hello/:name' do
-    # matches "GET /hello/foo" and "GET /hello/bar"
-    # params[:name] is 'foo' or 'bar'
-    "Hello #{params[:name]}!"
+  get '/hello/:nome' do
+    # riconosce "GET /hello/foo" e "GET /hello/bar"
+    # params[:nome] sarà 'foo' oppure 'bar'
+    "Hello #{params[:nome]}!"
   end
 
-You can also access named parameters via block parameters:
+È possibile accedere ai parametri utilizzando i blocchi:
 
-  get '/hello/:name' do |n|
+  get '/hello/:nome' do |n|
     "Hello #{n}!"
   end
 
-Route patterns may also include splat (or wildcard) parameters, accessible
-via the <tt>params[:splat]</tt> array:
+I route pattern possono anche includere parametri variabili (wildcard),
+accessibili attraverso l'array <tt>params[:splat]</tt>:
 
   get '/say/*/to/*' do
-    # matches /say/hello/to/world
+    # riconosce /say/hello/to/world
     params[:splat] # => ["hello", "world"]
   end
 
   get '/download/*.*' do
-    # matches /download/path/to/file.xml
-    params[:splat] # => ["path/to/file", "xml"]
+    # riconosce /download/percorso/al/file.xml
+    params[:splat] # => ["percorso/al/file", "xml"]
   end
 
-Or with block parameters:
+Oppure attraverso parametri di blocco:
 
   get '/download/*.*' do |path, ext|
-    [path, ext] # => ["path/to/file", "xml"]
+    [path, ext] # => ["percorso/al/file", "xml"]
   end
 
-Route matching with Regular Expressions:
+Route matching utilizzando espressioni regolari:
 
   get %r{/hello/([\w]+)} do
     "Hello, #{params[:captures].first}!"
   end
 
-Or with a block parameter:
+Oppure attraverso parametri di blocco:
 
   get %r{/hello/([\w]+)} do |c|
     "Hello, #{c}!"
   end
 
-Route patterns may have optional parameters:
+I route pattern possono avere parametri opzionali:
 
   get '/posts.?:format?' do
-    # matches "GET /posts" and any extension "GET /posts.json", "GET /posts.xml" etc.
+    # riconosce "GET /posts" e tutte le estensioni "GET /posts.json", "GET /posts.xml" ecc.
   end
 
-By the way, unless you disable the path traversal attack protection (see below),
-the request path might be modified before matching against your routes.
+Inoltre, a meno che la protezione dall'attacco di attraversamento del percorso 
+(vedi sotto) non sia disabilitata, il percorso di richiesta potrebbe essere modificato prima
+di essere testato rispetto alle route specificate.
 
 === Conditions
 
