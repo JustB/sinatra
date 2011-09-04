@@ -1,25 +1,26 @@
 = Sinatra
 <i>Attenzione: questo documento è una traduzione dell'originale inglese e
 potrebbe non essere aggiornato.</i>
-Sinatra is a DSL for quickly creating web applications in Ruby with minimal
-effort:
 
-  # myapp.rb
+Sinatra è un DSL per creare velocemente applicazioni web in Ruby con 
+minimo sforzo:
+
+  # miaapp.rb
   require 'sinatra'
   
   get '/' do
-    'Hello world!'
+    'Ciao Mondo!'
   end
 
-Install the gem and run with:
+Installa la gemma ed esegui lo script:
 
   gem install sinatra
-  ruby -rubygems myapp.rb
+  ruby -rubygems miaapp.rb
 
-View at: http://localhost:4567
+Visualizza il risultato in: http://localhost:4567
 
-It is recommended to also run <tt>gem install thin</tt>, which Sinatra will
-pick up if available.
+Si raccomanda di eseguire anche <tt>gem install thin</tt>, che verrà 
+utilizzato da Sinatra se disponibile.
 
 == Routes
 
