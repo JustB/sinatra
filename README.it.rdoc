@@ -110,22 +110,23 @@ Inoltre, a meno che la protezione dall'attacco di attraversamento del percorso
 (vedi sotto) non sia disabilitata, il percorso di richiesta potrebbe essere modificato prima
 di essere testato rispetto alle route specificate.
 
-=== Conditions
+=== Condizioni
 
-Routes may include a variety of matching conditions, such as the user agent:
+Le route possono includere anche condizioni di corrispondenza, ad esempio lo 
+user agent:
 
   get '/foo', :agent => /Songbird (\d\.\d)[\d\/]*?/ do
-    "You're using Songbird version #{params[:agent][0]}"
+    "Stai usando Songbird versione #{params[:agent][0]}"
   end
 
   get '/foo' do
-    # Matches non-songbird browsers
+    # Riconosce i browser diversi da Songbird
   end
 
-Other available conditions are +host_name+ and +provides+:
+Altre condizioni disponibili sono +host_name+ e +provides+:
 
   get '/', :host_name => /^admin\./ do
-    "Admin Area, Access denied!"
+    "Admin Area, Accesso Negato!"
   end
 
   get '/', :provides => 'html' do
@@ -136,21 +137,21 @@ Other available conditions are +host_name+ and +provides+:
     builder :feed
   end
 
-You can easily define your own conditions:
+È possibile definire altri tipi di condizioni:
 
-  set(:probability) { |value| condition { rand <= value } }
+  set(:probabilita) { |value| condition { rand <= value } }
   
-  get '/win_a_car', :probability => 0.1 do
-    "You won!"
+  get '/vinci_auto', :probabilita => 0.1 do
+    "Hai vinto!"
   end
   
-  get '/win_a_car' do
-    "Sorry, you lost."
+  get '/vinci_auto' do
+    "Spiacente, hai perso."
   end
   
-For a condition that takes multiple values use a splat:
+Per una condizione che accetta valori multipli si deve utilizzare un asterisco:
 
-  set(:auth) do |*roles|   # <- notice the splat here
+  set(:auth) do |*roles|   # <- nota l'uso dell'asterisco
     condition do
       unless logged_in? && roles.any? {|role| current_user.in_role? role }
         redirect "/login/", 303 
@@ -159,11 +160,11 @@ For a condition that takes multiple values use a splat:
   end
 
   get "/my/account/", :auth => [:user, :admin] do
-    "Your Account Details"
+    "Dettagli account"
   end
   
   get "/only/admin/", :auth => :admin do
-    "Only admins are allowed here!"
+    "Solo gli amministratori sono ammessi qui!"
   end
   
 === Return Values
