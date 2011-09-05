@@ -167,25 +167,26 @@ Per una condizione che accetta valori multipli si deve utilizzare un asterisco:
     "Solo gli amministratori sono ammessi qui!"
   end
   
-=== Return Values
+=== Valori di ritorno
 
-The return value of a route block determines at least the response body passed
-on to the HTTP client, or at least the next middleware in the Rack stack.
-Most commonly, this is a string, as in the above examples. But other values are
-also accepted.
+Il valore di ritorno di un blocco di una route determina almeno il corpo di 
+rispota restituito al client HTTP, o almeno il prossimo middleware nello stack 
+Rack.
+Di solito, il valore di ritorno è una stringa, come negli esempi precedenti. 
+Ma sono possibili anche altri valori.
 
-You can return any object that would either be a valid Rack response, Rack
-body object or HTTP status code:
+È possibile restituire qualsiasi oggetto che sia una valida risposta Rack, 
+un oggetto corpo Rack oppure uno codice di stato HTTP:
 
-* An Array with three elements: <tt>[status (Fixnum), headers (Hash), response
-  body (responds to #each)]</tt>
-* An Array with two elements: <tt>[status (Fixnum), response body (responds to
-  #each)]</tt>
-* An object that responds to <tt>#each</tt> and passes nothing but strings to 
-  the given block
-* A Fixnum representing the status code
+* Un Array con tre elementi: <tt>[status (Fixnum), headers (Hash), response
+  body (responds to #each)]</tt> 
+* Un Array con due elementi: <tt>[status (Fixnum), response body (responds to
+  #each)]</tt>                 
+* Un oggetto che risponde a <tt>#each</tt> e passa solo stringhe al blocco dato 
+* Un Fixnum rappresentante lo status code
 
-That way we can, for instance, easily implement a streaming example:
+In questo modo è possibile, ad esempio, implementare facilmente un esempio 
+di streaming:
 
     class Stream
       def each
@@ -195,8 +196,9 @@ That way we can, for instance, easily implement a streaming example:
 
     get('/') { Stream.new }
 
-You can also use the +stream+ helper method (described below) to reduce boiler
-plate and embed the streaming logic in the route.
+È anche possibile utilizzare il metodo helper +stream+ (descritto più avanti) 
+in modo da ridurre il codice ripetuto e incorporare la logica di streaming 
+nella route.
 
 === Custom Route Matchers
 
